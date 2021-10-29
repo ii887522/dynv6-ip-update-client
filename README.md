@@ -16,8 +16,10 @@ It can update IP addresses of existing DNS records created in dynv6 which is a p
 - [Coding Style](https://github.com/ii887522/dynv6-ip-update-client#coding-style)
 - [Prerequisites](https://github.com/ii887522/dynv6-ip-update-client#prerequisites)
 - [Install dependencies](https://github.com/ii887522/dynv6-ip-update-client#install-dependencies)
+- [Lint project](https://github.com/ii887522/dynv6-ip-update-client#lint-project)
 - [Automatically build project on save](https://github.com/ii887522/dynv6-ip-update-client#automatically-build-project-on-save)
 - [Start project](https://github.com/ii887522/dynv6-ip-update-client#start-project)
+- [Deploy project](https://github.com/ii887522/dynv6-ip-update-client#deploy-project)
 
 ## Coding Style
 This project follows [Javascript Standard Style](https://standardjs.com/). Please familiarize yourself with the rules provided in the coding style and
@@ -39,6 +41,11 @@ StandardJS - Javascript Standard Style which is a [Visual Studio Code](https://c
 ncu -u && npm install
 ```
 
+## Lint project
+```sh
+npm run lint
+```
+
 ## Automatically build project on save
 ```sh
 npx tsc --watch
@@ -46,5 +53,10 @@ npx tsc --watch
 
 ## Start project
 ```sh
-npm start
+npm start <http-token> <hostname>
+```
+
+## Deploy project
+```sh
+npm login && npm publish --access public
 ```
