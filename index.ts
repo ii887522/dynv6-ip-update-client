@@ -18,19 +18,19 @@ async function getIPv6Address (): Promise<string> {
   }
 }
 
-async function updateZone (zone: { id: number; name: any }, ipv6Address: string) {
+async function updateZone (zone: { id: number, name: string }, ipv6Address: string): Promise<void> {
   consume(
     axios.patch(
-      `${constants.dynv6ApiEndpoint}/zones/${zone.id as number}`,
+      `${constants.dynv6ApiEndpoint}/zones/${zone.id}`,
       { ipv6prefix: ipv6Address },
       { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
     ).then(() => console.log(`${new Date().toLocaleTimeString()}: ${zone.name ?? ''} address updated`))
   );
   (await axios.get(
-    `${constants.dynv6ApiEndpoint}/zones/${zone.id as number}/records`,
+    `${constants.dynv6ApiEndpoint}/zones/${zone.id}/records`,
     { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
-  )).data.filter((record: { name: string }) => record.name !== '').forEach(async (record: { id: any }) => await axios.patch(
-    `${constants.dynv6ApiEndpoint}/zones/${zone.id as number}/records/${record.id as number}`,
+  )).data.filter((record: { name: string }) => record.name !== '').forEach(async (record: { id: number }) => await axios.patch(
+    `${constants.dynv6ApiEndpoint}/zones/${zone.id}/records/${record.id}`,
     { data: ipv6Address },
     { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
   ).then(response => console.log(`${new Date().toLocaleTimeString()}: ${response.data.name as string}.${zone.name ?? ''} address updated`)))
@@ -38,12 +38,13 @@ async function updateZone (zone: { id: number; name: any }, ipv6Address: string)
 
 async function update (): Promise<void> {
   const ipv6AddressPromise = getIPv6Address()
-  for (const zone of (await axios.get(`${constants.dynv6ApiEndpoint}/zones`, { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } })).data)
-    updateZone(zone, await ipv6AddressPromise)
+  for (const zone of (await axios.get(`${constants.dynv6ApiEndpoint}/zones`, { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } })).data) {
+    consume(updateZone(zone, await ipv6AddressPromise))
+  }
 }
 
 try {
-  if (process.argv.length !== constants.requiredCommandLineArgCount) throw new Error(`There must be exactly 1 command line argument passed in! Please try again.`)
+  if (process.argv.length !== constants.requiredCommandLineArgCount) throw new Error('There must be exactly 1 command line argument passed in! Please try again.')
   consume(update())
 } catch (err) {
   console.log('dynv6-ip-update-client <http-token>')

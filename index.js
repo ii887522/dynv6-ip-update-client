@@ -21,12 +21,13 @@ async function updateZone(zone, ipv6Address) {
 }
 async function update() {
     const ipv6AddressPromise = getIPv6Address();
-    for (const zone of (await axios.get(`${constants.dynv6ApiEndpoint}/zones`, { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } })).data)
-        updateZone(zone, await ipv6AddressPromise);
+    for (const zone of (await axios.get(`${constants.dynv6ApiEndpoint}/zones`, { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } })).data) {
+        consume(updateZone(zone, await ipv6AddressPromise));
+    }
 }
 try {
     if (process.argv.length !== constants.requiredCommandLineArgCount)
-        throw new Error(`There must be exactly 1 command line argument passed in! Please try again.`);
+        throw new Error('There must be exactly 1 command line argument passed in! Please try again.');
     consume(update());
 }
 catch (err) {
