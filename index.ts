@@ -18,35 +18,36 @@ async function getIPv6Address (): Promise<string> {
   }
 }
 
-async function update (): Promise<void> {
-  const ipv6Address = await getIPv6Address()
-  const dynv6ApiEndpoint = 'https://dynv6.com/api/v2'
-  const zone = await axios.get(
-    `${dynv6ApiEndpoint}/zones/by-name/${process.argv[constants.hostnameIndex] ?? ''}`,
-    { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
-  )
+async function updateZone (zone: { id: number; name: any }, ipv6Address: string) {
   consume(
     axios.patch(
-      `${dynv6ApiEndpoint}/zones/${zone.data.id as number}`,
+      `${constants.dynv6ApiEndpoint}/zones/${zone.id as number}`,
       { ipv6prefix: ipv6Address },
       { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
-    ).then(() => console.log(`${new Date().toLocaleTimeString()}: ${process.argv[constants.hostnameIndex] ?? ''} address updated`))
+    ).then(() => console.log(`${new Date().toLocaleTimeString()}: ${zone.name ?? ''} address updated`))
   );
-  (await axios.get(`${dynv6ApiEndpoint}/zones/${zone.data.id as number}/records`, { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }))
-    .data.filter((record: { name: string }) => record.name !== '').forEach(async (record: { id: any }) => await axios.patch(
-      `${dynv6ApiEndpoint}/zones/${zone.data.id as number}/records/${record.id as number}`,
-      { data: ipv6Address },
-      { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
-    ).then(response => console.log(`${new Date().toLocaleTimeString()}: ${response.data.name as string}.${process.argv[constants.hostnameIndex] ?? ''} address updated`)))
+  (await axios.get(
+    `${constants.dynv6ApiEndpoint}/zones/${zone.id as number}/records`,
+    { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
+  )).data.filter((record: { name: string }) => record.name !== '').forEach(async (record: { id: any }) => await axios.patch(
+    `${constants.dynv6ApiEndpoint}/zones/${zone.id as number}/records/${record.id as number}`,
+    { data: ipv6Address },
+    { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } }
+  ).then(response => console.log(`${new Date().toLocaleTimeString()}: ${response.data.name as string}.${zone.name ?? ''} address updated`)))
+}
+
+async function update (): Promise<void> {
+  const ipv6AddressPromise = getIPv6Address()
+  for (const zone of (await axios.get(`${constants.dynv6ApiEndpoint}/zones`, { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } })).data)
+    updateZone(zone, await ipv6AddressPromise)
 }
 
 try {
-  if (process.argv.length !== constants.requiredCommandLineArgCount) throw new Error('There must be exactly 2 command line arguments passed in! Please try again.')
+  if (process.argv.length !== constants.requiredCommandLineArgCount) throw new Error(`There must be exactly 1 command line argument passed in! Please try again.`)
   consume(update())
 } catch (err) {
-  console.log('dynv6-ip-update-client <http-token> <hostname>')
+  console.log('dynv6-ip-update-client <http-token>')
   console.log('http-token: It must exists.')
-  console.log('hostname: It must exists and is accessible by using the http-token passed in.')
   process.exit(-1)
 }
 setInterval(() => consume(update()), 300000)
