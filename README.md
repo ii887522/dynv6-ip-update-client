@@ -24,10 +24,9 @@ It can update IP addresses of existing DNS records created in dynv6 which is a p
 
 ## Usage
 ```sh
-dynv6-ip-update-client <http-token> <hostname>
+dynv6-ip-update-client <http-token>
 ```
 `http-token`: It must exists.<br />
-`hostname`: It must exists and is accessible by using the `http-token` passed in.<br />
 
 ## Coding Style
 This project follows [Javascript Standard Style](https://standardjs.com/). Please familiarize yourself with the rules provided in the coding style and
@@ -61,7 +60,7 @@ npx tsc --watch
 
 ## Start project
 ```sh
-npm start <http-token> <hostname>
+npm start <http-token>
 ```
 
 ## Deploy project

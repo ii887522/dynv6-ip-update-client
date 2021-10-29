@@ -2,6 +2,6 @@
 
 export default {
   httpTokenIndex: 2,
-  hostnameIndex: 3,
-  requiredCommandLineArgCount: 4
+  requiredCommandLineArgCount: 3,
+  dynv6ApiEndpoint: 'https://dynv6.com/api/v2'
 }
