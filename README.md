@@ -13,6 +13,7 @@
 It can update IP addresses of existing DNS records created in dynv6 which is a platform for getting public hostnames for your dynamic IPv4 and IPv6 addresses with the latest IP addresses from the client.
 
 ## Table of Contents
+- [Usage](https://github.com/ii887522/dynv6-ip-update-client#usage)
 - [Coding Style](https://github.com/ii887522/dynv6-ip-update-client#coding-style)
 - [Prerequisites](https://github.com/ii887522/dynv6-ip-update-client#prerequisites)
 - [Install dependencies](https://github.com/ii887522/dynv6-ip-update-client#install-dependencies)
@@ -20,6 +21,13 @@ It can update IP addresses of existing DNS records created in dynv6 which is a p
 - [Automatically build project on save](https://github.com/ii887522/dynv6-ip-update-client#automatically-build-project-on-save)
 - [Start project](https://github.com/ii887522/dynv6-ip-update-client#start-project)
 - [Deploy project](https://github.com/ii887522/dynv6-ip-update-client#deploy-project)
+
+## Usage
+```sh
+dynv6-ip-update-client <http-token> <hostname>
+```
+`http-token`: It must exists.<br />
+`hostname`: It must exists and is accessible by using the `http-token` passed in.<br />
 
 ## Coding Style
 This project follows [Javascript Standard Style](https://standardjs.com/). Please familiarize yourself with the rules provided in the coding style and
