@@ -8,7 +8,7 @@
 [![Npm package version](https://badgen.net/npm/v/@ii887522/dynv6-ip-update-client)](https://www.npmjs.com/package/@ii887522/dynv6-ip-update-client)
 [![Npm package daily downloads](https://badgen.net/npm/dm/@ii887522/dynv6-ip-update-client)](https://npmjs.com/package/@ii887522/dynv6-ip-update-client)
 [![Npm package license](https://badgen.net/npm/license/@ii887522/dynv6-ip-update-client)](https://npmjs.com/package/@ii887522/dynv6-ip-update-client)
-[![Npm package dependents](https://badgen.net/npm/dependents/@ii887522/dynv6-ip-update-client)](https://npmjs.ccom/package/@ii887522/dynv6-ip-update-client)
+[![Npm package dependents](https://badgen.net/npm/dependents/@ii887522/dynv6-ip-update-client)](https://npmjs.com/package/@ii887522/dynv6-ip-update-client)
 
 It can update IP addresses of existing DNS records created in dynv6 which is a platform for getting public hostnames for your dynamic IPv4 and IPv6 addresses with the latest IP addresses from the client.
 
@@ -24,16 +24,15 @@ It can update IP addresses of existing DNS records created in dynv6 which is a p
 
 ## Usage
 ```sh
-dynv6-ip-update-client <http-token> <hostname>
+dynv6-ip-update-client <http-token>
 ```
 `http-token`: It must exists.<br />
-`hostname`: It must exists and is accessible by using the `http-token` passed in.<br />
 
 ## Coding Style
 This project follows [Javascript Standard Style](https://standardjs.com/). Please familiarize yourself with the rules provided in the coding style and
 make sure all the proposed code changes in your commits are conforming to the style before making a merge request. You can also make use of
-StandardJS - Javascript Standard Style which is a [Visual Studio Code](https://code.visualstudio.com/) plugin and `test` command under the
-[Install dependencies, build and test project](https://github.com/ii887522/hydro/blob/master/CONTRIBUTING.md#install-dependencies-build-and-test-project) section to support you.
+StandardJS - Javascript Standard Style which is a [Visual Studio Code](https://code.visualstudio.com/) plugin and `npm run lint` command under the
+[Lint project](https://github.com/ii887522/dynv6-ip-update-client#lint-project) section to support you.
 
 ## Prerequisites
 - Windows 11 or Linux
@@ -61,7 +60,7 @@ npx tsc --watch
 
 ## Start project
 ```sh
-npm start <http-token> <hostname>
+npm start <http-token>
 ```
 
 ## Deploy project
