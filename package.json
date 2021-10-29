@@ -1,0 +1,36 @@
+{
+  "name": "@ii887522/dynv6-ip-update-client",
+  "version": "0.1.0",
+  "description": "It can update IP addresses of existing DNS records created in dynv6 which is a platform for getting public hostnames for your dynamic IPv4 and IPv6 addresses with the latest IP addresses from the client.",
+  "main": "index.js",
+  "bin": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ii887522/dynv6-ip-update-client.git"
+  },
+  "keywords": [
+    "dns",
+    "ipv6",
+    "ddns",
+    "ipv4",
+    "ip",
+    "dynv6",
+    "dynv6-dns-ip"
+  ],
+  "author": "ii887522",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ii887522/dynv6-ip-update-client/issues"
+  },
+  "homepage": "https://github.com/ii887522/dynv6-ip-update-client#readme",
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
