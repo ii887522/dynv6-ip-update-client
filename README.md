@@ -55,7 +55,7 @@ npm run lint
 
 ## Automatically build project on save
 ```sh
-npx tsc --watch
+npm run build
 ```
 
 ## Start project
