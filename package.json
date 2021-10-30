@@ -1,6 +1,6 @@
 {
   "name": "@ii887522/dynv6-ip-update-client",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "It can update IP addresses of existing DNS records created in dynv6 which is a platform for getting public hostnames for your dynamic IPv4 and IPv6 addresses with the latest IP addresses from the client.",
   "main": "index.js",
   "bin": "index.js",
