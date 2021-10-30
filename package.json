@@ -7,6 +7,7 @@
   "type": "module",
   "scripts": {
     "lint": "ts-standard",
+    "build": "tsc --watch",
     "start": "node index.js"
   },
   "repository": {
@@ -29,9 +30,7 @@
   },
   "homepage": "https://github.com/ii887522/dynv6-ip-update-client#readme",
   "ts-standard": {
-    "ignore": [
-      "**/*.js"
-    ]
+    "ignore": ["**/*.js"]
   },
   "devDependencies": {
     "@types/node": "^16.11.6",
