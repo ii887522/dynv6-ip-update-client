@@ -7,7 +7,9 @@ import { consume } from '@ii887522/hydro'
 import constants from './src/constants.js'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
 
-axiosRetry(axios, { retryDelay: exponentialDelay, retryCondition: error => error.response === undefined || (error.response.status >= 400 && error.response.status < 600) })
+axiosRetry(
+  axios, { retries: 16, retryDelay: exponentialDelay, retryCondition: error => error.response === undefined || (error.response.status >= 400 && error.response.status < 600) }
+)
 
 async function getIPv6Address (): Promise<string> {
   const ipv6ApiEndpoint = 'https://ipv6bot.whatismyipaddress.com'
