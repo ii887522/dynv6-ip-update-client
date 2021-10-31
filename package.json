@@ -30,7 +30,9 @@
   },
   "homepage": "https://github.com/ii887522/dynv6-ip-update-client#readme",
   "ts-standard": {
-    "ignore": ["**/*.js"]
+    "ignore": [
+      "**/*.js"
+    ]
   },
   "devDependencies": {
     "@types/node": "^16.11.6",
@@ -39,6 +41,7 @@
   },
   "dependencies": {
     "@ii887522/hydro": "^1.3.1",
-    "axios": "^0.24.0"
+    "axios": "^0.24.0",
+    "axios-retry": "^3.2.4"
   }
 }
