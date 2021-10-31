@@ -2,7 +2,9 @@
 'use strict';
 import axios from 'axios';
 import { consume } from '@ii887522/hydro';
-import constants from './constants.js';
+import constants from './src/constants.js';
+import axiosRetry, { exponentialDelay } from 'axios-retry';
+axiosRetry(axios, { retryDelay: exponentialDelay });
 async function getIPv6Address() {
     const ipv6ApiEndpoint = 'https://ipv6bot.whatismyipaddress.com';
     let ipv6AddressPromise = axios.get(ipv6ApiEndpoint);
