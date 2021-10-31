@@ -65,5 +65,5 @@ npm start <http-token>
 
 ## Deploy project
 ```sh
-npm login && npm publish --access public
+npm run deploy
 ```
