@@ -8,7 +8,8 @@
   "scripts": {
     "lint": "ts-standard",
     "build": "tsc --watch",
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "npm login && npm publish --access public"
   },
   "repository": {
     "type": "git",
