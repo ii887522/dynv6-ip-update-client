@@ -57,10 +57,8 @@ jobs:
             test/**/*.js
           key: ${{ runner.os }}-node-${{ hashFiles('*.ts', 'src/**/*.ts', 'test/**/*.ts') }}
       - name: Install dependencies
-        run: npm ci
-      - name: Install Typescript
         if: steps.outputs-cache.outputs.cache-hit != 'true'
-        run: npm install -g typescript
+        run: npm ci
       - if: steps.outputs-cache.outputs.cache-hit != 'true'
         run: npx tsc
     needs: lint

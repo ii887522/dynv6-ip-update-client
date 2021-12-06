@@ -4,26 +4,16 @@
 
 import axios from 'axios'
 import { consume } from '@ii887522/hydro'
-import constants from './src/constants.js'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
+import publicIp from 'public-ip'
+import constants from './src/constants.js'
+import Zone from './src/Zone'
 
 axiosRetry(
   axios, { retries: 16, retryDelay: exponentialDelay, retryCondition: error => error.response === undefined || (error.response.status >= 400 && error.response.status < 600) }
 )
 
-async function getIPv6Address (): Promise<string> {
-  const ipv6ApiEndpoint = 'https://ipv6bot.whatismyipaddress.com'
-  let ipv6AddressPromise = axios.get(ipv6ApiEndpoint)
-  while (true) {
-    try {
-      return (await ipv6AddressPromise).data
-    } catch (err) {
-      ipv6AddressPromise = axios.get(ipv6ApiEndpoint)
-    }
-  }
-}
-
-async function updateRecords (zone: { id: number, name: string }, ipv6Address: string): Promise<void> {
+async function updateRecords (zone: Zone, ipv6Address: string): Promise<void> {
   for (
     const record of (await axios.get(
       `${constants.dynv6ApiEndpoint}/zones/${zone.id}/records`,
@@ -40,7 +30,7 @@ async function updateRecords (zone: { id: number, name: string }, ipv6Address: s
   }
 }
 
-function updateZone (zone: { id: number, name: string }, ipv6Address: string): void {
+function updateZone (zone: Zone, ipv6Address: string): void {
   consume(
     axios.patch(
       `${constants.dynv6ApiEndpoint}/zones/${zone.id}`,
@@ -52,7 +42,7 @@ function updateZone (zone: { id: number, name: string }, ipv6Address: string): v
 }
 
 async function update (): Promise<void> {
-  const ipv6AddressPromise = getIPv6Address()
+  const ipv6AddressPromise = publicIp.v6()
   for (const zone of (await axios.get(`${constants.dynv6ApiEndpoint}/zones`, { headers: { Authorization: `Bearer ${process.argv[constants.httpTokenIndex] ?? ''}` } })).data) {
     updateZone(zone, await ipv6AddressPromise)
   }
@@ -62,8 +52,8 @@ try {
   if (process.argv.length !== constants.requiredCommandLineArgCount) throw new Error('There must be exactly 1 command line argument passed in! Please try again.')
   consume(update())
 } catch (err) {
-  console.log('dynv6-ip-update-client <http-token>')
-  console.log('http-token: It must exists.')
+  console.error('dynv6-ip-update-client <http-token>')
+  console.error('http-token: It must exists.')
   process.exit(-1)
 }
 setInterval(() => consume(update()), 300000)
