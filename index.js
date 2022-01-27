@@ -21,14 +21,7 @@ async function update() {
         updateZone(zone, await ipv6AddressPromise);
     }
 }
-try {
-    if (process.argv.length !== constants.requiredCommandLineArgCount)
-        throw new Error('There must be exactly 1 command line argument passed in! Please try again.');
-    consume(update());
-}
-catch (err) {
-    console.error('dynv6-ip-update-client <http-token>');
-    console.error('http-token: It must exists.');
-    process.exit(-1);
-}
+if (process.argv.length !== constants.requiredCommandLineArgCount)
+    throw new Error('There must be exactly 1 command line argument passed in! Please try again.');
+consume(update());
 setInterval(() => consume(update()), 300000);
