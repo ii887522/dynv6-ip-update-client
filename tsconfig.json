@@ -25,6 +25,8 @@
     "inlineSources": false,
     "newLine": "lf",
     "noEmitOnError": true,
+    "outDir": "./out",
+    "rootDir": "./src",
     "preserveValueImports": false,
     "removeComments": true,
     "sourceMap": true,

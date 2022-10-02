@@ -6,8 +6,8 @@ import axios from 'axios'
 import { consume } from '@ii887522/hydro'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
 import { publicIpv6 } from 'public-ip'
-import constants from './src/constants.js'
-import Zone from './src/Zone'
+import constants from './constants.js'
+import Zone from './Zone'
 
 axiosRetry(axios, {
   retries: 16,
