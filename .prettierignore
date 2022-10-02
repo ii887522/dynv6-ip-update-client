@@ -1,6 +1,5 @@
 package-lock.json
-*.js
-*.js.map
+out
 types
 CODE_OF_CONDUCT.md
 *.tsbuildinfo
