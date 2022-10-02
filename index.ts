@@ -5,7 +5,7 @@
 import axios from 'axios'
 import { consume } from '@ii887522/hydro'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
-import publicIp from 'public-ip'
+import { publicIpv6 } from 'public-ip'
 import constants from './src/constants.js'
 import Zone from './src/Zone'
 
@@ -62,7 +62,7 @@ function updateZone(zone: Zone, ipv6Address: string): void {
 }
 
 async function update(): Promise<void> {
-  const ipv6AddressPromise = publicIp.publicIpv6()
+  const ipv6AddressPromise = publicIpv6()
   for (const zone of (
     await axios.get(`${constants.dynv6ApiEndpoint}/zones`, {
       headers: {
