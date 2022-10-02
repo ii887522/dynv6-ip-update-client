@@ -3,4 +3,4 @@ package-lock.json
 *.js.map
 types
 CODE_OF_CONDUCT.md
-tsconfig.*
+*.tsbuildinfo
