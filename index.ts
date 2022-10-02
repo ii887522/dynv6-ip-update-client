@@ -13,7 +13,7 @@ axiosRetry(axios, {
   retries: 16,
   retryDelay: exponentialDelay,
   retryCondition: error =>
-    error.response === undefined || (error.response.status >= 400 && error.response.status < 600),
+    error.response === undefined || (error.response.status >= 500 && error.response.status < 600),
 })
 
 async function updateRecords(zone: Zone, ipv6Address: string): Promise<void> {
