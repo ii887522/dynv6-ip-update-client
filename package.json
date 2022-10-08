@@ -1,15 +1,15 @@
 {
   "name": "@ii887522/dynv6-ip-update-client",
-  "version": "2.0.0",
-  "description": "It can update IP addresses of existing DNS records created in dynv6 which is a platform for getting public hostnames for your dynamic IPv4 and IPv6 addresses with the latest IP addresses from the client.",
-  "main": "index.js",
-  "bin": "index.js",
+  "version": "2.0.2",
+  "description": "Update IP addresses of existing DNS records created in dynv6 which is a platform for getting public hostnames for your dynamic IPv4 and IPv6 addresses with the latest IP addresses from the client.",
+  "bin": "out/index.js",
   "type": "module",
   "scripts": {
-    "lint": "ts-standard",
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "start": "node index.js"
+    "lint": "eslint --ext .ts .",
+    "lint:watch": "esw --ext .ts --watch .",
+    "build": "tsc --build",
+    "build:watch": "tsc --build --watch",
+    "start": "node out/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,17 +31,30 @@
   },
   "homepage": "https://github.com/ii887522/dynv6-ip-update-client#readme",
   "ts-standard": {
-    "ignore": ["**/*.js"]
+    "ignore": [
+      "**/*.js"
+    ]
   },
   "devDependencies": {
-    "@types/node": "^17.0.12",
-    "ts-standard": "^11.0.0",
-    "typescript": "^4.5.5"
+    "@types/node": "^18.7.23",
+    "@types/readline-sync": "^1.4.4",
+    "@typescript-eslint/eslint-plugin": "5.38.1",
+    "@typescript-eslint/parser": "5.38.1",
+    "eslint": "8.24.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-standard-with-typescript": "23.0.0",
+    "eslint-plugin-eslint-comments": "3.2.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-n": "15.3.0",
+    "eslint-plugin-promise": "6.0.1",
+    "eslint-watch": "8.0.0",
+    "prettier": "2.7.1",
+    "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@ii887522/hydro": "^2.0.1",
-    "axios": "^0.25.0",
-    "axios-retry": "^3.2.4",
-    "public-ip": "^5.0.0"
+    "@ii887522/hydro": "^4.1.0",
+    "axios": "^0.27.2",
+    "axios-retry": "^3.3.1",
+    "public-ip": "^6.0.1"
   }
 }
