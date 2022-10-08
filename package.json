@@ -1,15 +1,15 @@
 {
   "name": "@ii887522/dynv6-ip-update-client",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Update IP addresses of existing DNS records created in dynv6 which is a platform for getting public hostnames for your dynamic IPv4 and IPv6 addresses with the latest IP addresses from the client.",
-  "bin": "index.js",
+  "bin": "out/index.js",
   "type": "module",
   "scripts": {
     "lint": "eslint --ext .ts .",
     "lint:watch": "esw --ext .ts --watch .",
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
-    "start": "node index.js"
+    "start": "node out/index.js"
   },
   "repository": {
     "type": "git",
